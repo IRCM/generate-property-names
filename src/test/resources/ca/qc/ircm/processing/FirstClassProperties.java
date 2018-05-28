@@ -17,15 +17,11 @@
 
 package ca.qc.ircm.processing;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import javax.annotation.Generated;
 
-/**
- * Used to generate property names class.
- */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.SOURCE)
-public @interface GeneratePropertyNames {
+@Generated(value="PropertyNamesProcessor")
+public class FirstClassProperties {
+  public static final String id = "id";
+  public static final String name = "name";
+  public static final String valid = "valid";
 }

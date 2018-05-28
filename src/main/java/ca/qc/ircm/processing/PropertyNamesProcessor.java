@@ -21,8 +21,6 @@ import com.google.auto.service.AutoService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -55,7 +53,7 @@ public class PropertyNamesProcessor extends AbstractProcessor {
   private static final String CLASSNAME = PropertyNamesProcessor.class.getName();
   private static final String GETTER_METHOD_NAME_LOWERCASE_PATTERN = "is{0}|get{0}";
   private static final String SETTER_METHOD_NAME_LOWERCASE_PATTERN = "set{0}";
-  private static final Logger logger = Logger.getLogger(PropertyNamesProcessor.class.getName());
+  private static final Logger logger = Logger.getLogger(CLASSNAME);
 
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -70,9 +68,9 @@ public class PropertyNamesProcessor extends AbstractProcessor {
       try {
         createPropertyNamesClass(clazz);
       } catch (IOException e) {
-        logger.throwing(CLASSNAME, "process", e);
-        throw new IllegalStateException(
-            "Could not create fields class for class " + clazz.getSimpleName(), e);
+        logger.warning("Could not create fields class for class " + clazz.getSimpleName()
+            + ", error " + e.getMessage());
+        return false;
       }
     }
     return true;
@@ -83,19 +81,19 @@ public class PropertyNamesProcessor extends AbstractProcessor {
     final String packageName =
         packageElement != null ? packageElement.getQualifiedName().toString() : null;
     final String className = MessageFormat.format(GENERATE_CLASSNAME, clazz.getSimpleName());
-    final String qualifiedClassName = (packageName != null ? packageName + "." : "") + className;
+    final String qualifiedClassName =
+        (packageName != null && !packageName.isEmpty() ? packageName + "." : "") + className;
     logger.info("Generating class " + qualifiedClassName + " for " + clazz.getQualifiedName());
     List<Element> fields = clazz.getEnclosedElements().stream()
         .filter(element -> element.getKind() == ElementKind.FIELD).collect(Collectors.toList());
     List<Element> methods = clazz.getEnclosedElements().stream()
         .filter(element -> element.getKind() == ElementKind.METHOD).collect(Collectors.toList());
-    Set<Element> properties =
-        fields.stream().filter(field -> isProperty(field, methods)).collect(Collectors.toSet());
+    List<Element> properties =
+        fields.stream().filter(field -> isProperty(field, methods)).collect(Collectors.toList());
     JavaFileObject fieldsDefinitionFile =
         processingEnv.getFiler().createSourceFile(qualifiedClassName, clazz);
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     try (PrintWriter out = new PrintWriter(fieldsDefinitionFile.openWriter())) {
-      if (packageName != null) {
+      if (packageName != null && !packageName.isEmpty()) {
         out.print("package ");
         out.print(packageName);
         out.println(";");
@@ -105,8 +103,6 @@ public class PropertyNamesProcessor extends AbstractProcessor {
       out.println();
       out.print("@Generated(value=\"");
       out.print(GENERATED_VALUE);
-      out.print("\", date=\"");
-      out.print(dateTimeFormatter.format(LocalDateTime.now()));
       out.println("\")");
       out.print("public class ");
       out.print(className);

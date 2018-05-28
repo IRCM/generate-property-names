@@ -17,15 +17,46 @@
 
 package ca.qc.ircm.processing;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+@GeneratePropertyNames
+public class FirstClass {
+  private Long id;
+  private String name;
+  private boolean valid;
+  @SuppressWarnings("unused")
+  private String nonProperty;
+  private String onlyGetter;
+  @SuppressWarnings("unused")
+  private String onlySetter;
 
-/**
- * Used to generate property names class.
- */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.SOURCE)
-public @interface GeneratePropertyNames {
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public boolean isValid() {
+    return valid;
+  }
+
+  public void setValid(boolean valid) {
+    this.valid = valid;
+  }
+
+  public String getOnlyGetter() {
+    return onlyGetter;
+  }
+
+  public void setOnlySetter(String onlySetter) {
+    this.onlySetter = onlySetter;
+  }
 }

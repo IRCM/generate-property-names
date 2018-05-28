@@ -49,8 +49,15 @@
   <properties>
     <javac.version>1.8</javac.version>
     <auto-service.version>1.0-rc4</auto-service.version>
+    <compile-testing.version>0.13</compile-testing.version>
   </properties>
   <dependencies>
+		<dependency>
+		  <groupId>com.google.testing.compile</groupId>
+		  <artifactId>compile-testing</artifactId>
+		  <version>${compile-testing.version}</version>
+		  <scope>test</scope>
+		</dependency>
     <dependency>
       <groupId>com.google.auto.service</groupId>
       <artifactId>auto-service</artifactId>

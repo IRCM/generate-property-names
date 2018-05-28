@@ -15,17 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ca.qc.ircm.processing;
+import javax.annotation.Generated;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-/**
- * Used to generate property names class.
- */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.SOURCE)
-public @interface GeneratePropertyNames {
+@Generated(value="PropertyNamesProcessor")
+public class SecondClassProperties {
+  public static final String id = "id";
+  public static final String name = "name";
 }
