@@ -1,0 +1,151 @@
+<!--
+
+    Copyright (c) 2018 Institut de recherches cliniques de Montreal (IRCM)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>ca.qc.ircm</groupId>
+    <artifactId>ircm-parent</artifactId>
+    <version>3</version>
+    <relativePath>../ircm-parent/pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>property-names-annotation-processor</artifactId>
+  <name>property-names-annotation-processor</name>
+  <inceptionYear>2018</inceptionYear>
+  <version>1.0-SNAPSHOT</version>
+  <description>Creates a metadata class containing property names of annotated classes as public static fields.</description>
+  <url>http://bitbucket.org/ircm/property-names-annotation-processor</url>
+  <licenses>
+    <license>
+      <name>GNU Affero General Public License</name>
+      <url>https://www.gnu.org/licenses/agpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:git@bitbucket.org:ircm/property-names-annotation-processor.git</connection>
+    <developerConnection>scm:git:git@bitbucket.org:ircm/property-names-annotation-processor.git</developerConnection>
+    <url>https://bitbucket.org/ircm/property-names-annotation-processor</url>
+  </scm>
+  <issueManagement>
+    <system>Bitbucket</system>
+    <url>https://bitbucket.org/ircm/property-names-annotation-processor/issues</url>
+  </issueManagement>
+  <properties>
+    <javac.version>1.8</javac.version>
+    <auto-service.version>1.0-rc4</auto-service.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.auto.service</groupId>
+      <artifactId>auto-service</artifactId>
+      <version>${auto-service.version}</version>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <excludes>
+              <exclude>ca/qc/ircm/processing/test/**/*.java</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>external.atlassian.jgitflow</groupId>
+          <artifactId>jgitflow-maven-plugin</artifactId>
+          <configuration>
+            <noDeploy>true</noDeploy>
+            <enableSshAgent>true</enableSshAgent>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <configuration>
+            <headerDefinitions>
+              <headerDefinition>src/license/javacomment_style.xml</headerDefinition>
+            </headerDefinitions>
+            <mapping>
+              <java>JAVACOMMENT_STYLE</java>
+              <ini>SEMICOLON_STYLE</ini>
+              <scss>JAVADOC_STYLE</scss>
+            </mapping>
+            <excludes>
+              <exclude>**/README</exclude>
+              <exclude>**/*.txt</exclude>
+              <exclude>**/.*</exclude>
+              <exclude>**/*.dtd</exclude>
+              <exclude>**/*.dat</exclude>
+              <exclude>src/license/THIRD-PARTY.properties</exclude>
+              <exclude>src/main/resources/VAADIN/themes/**/addons.scss</exclude>
+              <exclude>src/main/java/**/web/**/*Design.java</exclude>
+              <exclude>src/main/java/**/web/**/*Design.html</exclude>
+            </excludes>
+            <executions>
+              <execution>
+                <goals><goal>check</goal></goals>
+              </execution>
+            </executions>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <configuration>
+          <reportsDirectories>
+            <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          </reportsDirectories>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <excludeFilterFile>${basedir}/findbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
