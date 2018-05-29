@@ -29,7 +29,7 @@
   <inceptionYear>2018</inceptionYear>
   <version>0.2-SNAPSHOT</version>
   <description>Creates a metadata class containing property names of annotated classes as public static fields.</description>
-  <url>http://bitbucket.org/ircm/property-names-annotation-processor</url>
+  <url>https://github.com/IRCM/property-names-annotation-processor</url>
   <licenses>
     <license>
       <name>GNU Affero General Public License</name>
@@ -38,13 +38,13 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:git@bitbucket.org:ircm/property-names-annotation-processor.git</connection>
-    <developerConnection>scm:git:git@bitbucket.org:ircm/property-names-annotation-processor.git</developerConnection>
-    <url>https://bitbucket.org/ircm/property-names-annotation-processor</url>
+    <connection>scm:git:github.com:IRCM/property-names-annotation-processor.git</connection>
+    <developerConnection>scm:git:github.com:IRCM/property-names-annotation-processor.git</developerConnection>
+    <url>https://github.com/IRCM/property-names-annotation-processor</url>
   </scm>
   <issueManagement>
-    <system>Bitbucket</system>
-    <url>https://bitbucket.org/ircm/property-names-annotation-processor/issues</url>
+    <system>GitHub</system>
+    <url>https://github.com/IRCM/property-names-annotation-processor/issues</url>
   </issueManagement>
   <properties>
     <javac.version>1.8</javac.version>
