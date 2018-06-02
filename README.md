@@ -30,4 +30,3 @@ public class MyClassProperties {
 
 - ca.qc.ircm.processing.GeneratePropertyNames
 - javax.persistence.Entity
-- org.springframework.data.mongodb.core.mapping.Document

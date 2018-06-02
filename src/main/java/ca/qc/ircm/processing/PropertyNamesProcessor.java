@@ -44,7 +44,7 @@ import javax.tools.JavaFileObject;
  * Creates a class naming all fields of annotated classes.
  */
 @SupportedAnnotationTypes({ "ca.qc.ircm.processing.GeneratePropertyNames",
-    "javax.persistence.Entity", "org.springframework.data.mongodb.core.mapping.Document" })
+    "javax.persistence.Entity" })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class PropertyNamesProcessor extends AbstractProcessor {
