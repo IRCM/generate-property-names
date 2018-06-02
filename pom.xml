@@ -33,7 +33,7 @@
   <artifactId>property-names-annotation-processor</artifactId>
   <name>property-names-annotation-processor</name>
   <inceptionYear>2018</inceptionYear>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2</version>
   <description>Creates a metadata class containing property names of annotated classes as public static fields.</description>
   <url>https://github.com/IRCM/property-names-annotation-processor</url>
   <licenses>
