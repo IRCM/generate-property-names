@@ -83,14 +83,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>external.atlassian.jgitflow</groupId>
-          <artifactId>jgitflow-maven-plugin</artifactId>
-          <configuration>
-            <noDeploy>true</noDeploy>
-            <enableSshAgent>true</enableSshAgent>
-          </configuration>
-        </plugin>
-        <plugin>
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
