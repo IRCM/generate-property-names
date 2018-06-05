@@ -38,8 +38,8 @@
   <url>https://github.com/IRCM/property-names-annotation-processor</url>
   <licenses>
     <license>
-      <name>GNU Affero General Public License</name>
-      <url>https://www.gnu.org/licenses/agpl.txt</url>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
