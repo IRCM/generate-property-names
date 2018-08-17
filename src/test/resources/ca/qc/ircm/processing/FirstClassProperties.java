@@ -25,7 +25,7 @@ package ca.qc.ircm.processing;
 
 import javax.annotation.Generated;
 
-@Generated(value="PropertyNamesProcessor")
+@Generated(value = "PropertyNamesProcessor")
 public class FirstClassProperties {
   public static final String id = "id";
   public static final String name = "name";
