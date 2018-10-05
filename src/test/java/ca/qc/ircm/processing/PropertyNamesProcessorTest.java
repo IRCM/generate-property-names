@@ -42,6 +42,16 @@ public class PropertyNamesProcessorTest {
   }
 
   @Test
+  public void capitalizeClass() {
+    Compilation compilation = javac().withProcessors(new PropertyNamesProcessor())
+        .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/CapitalizeClass.java"));
+    assertThat(compilation).succeeded();
+    assertThat(compilation).generatedSourceFile("ca.qc.ircm.processing.CapitalizeClassProperties")
+        .hasSourceEquivalentTo(
+            JavaFileObjects.forResource("ca/qc/ircm/processing/CapitalizeClassProperties.java"));
+  }
+
+  @Test
   public void secondClass() {
     Compilation compilation = javac().withProcessors(new PropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("SecondClass.java"));

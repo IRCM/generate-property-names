@@ -24,8 +24,8 @@
 package ca.qc.ircm.processing;
 
 @SuppressWarnings("checkstyle:all")
-@GeneratePropertyNames(capitalize=false)
-public class FirstClass {
+@GeneratePropertyNames
+public class CapitalizeClass {
   private Long id;
   private String name;
   private boolean valid;

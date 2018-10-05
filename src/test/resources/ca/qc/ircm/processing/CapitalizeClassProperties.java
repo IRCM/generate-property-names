@@ -23,21 +23,15 @@
 
 package ca.qc.ircm.processing;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import javax.annotation.Generated;
 
-/**
- * Used to generate property names class.
- */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.SOURCE)
-public @interface GeneratePropertyNames {
-  /**
-   * True to capitalize property names, false to keep property names as is.
-   *
-   * @return true to capitalize property names, false to keep property names as is
-   */
-  boolean capitalize() default true;
+@Generated(value = "PropertyNamesProcessor")
+public class CapitalizeClassProperties {
+  public static final String ID = "id";
+  public static final String NAME = "name";
+  public static final String VALID = "valid";
+  public static final String CAMEL_CASE_PROPERTY = "camelCaseProperty";
+  public static final String UPPER = "UPPER";
+  public static final String CAMEL_MANY_UPPER_CASES = "camelMANYUpperCases";
+  public static final String FIRST_UPPER_CASE = "FirstUpperCase";
 }

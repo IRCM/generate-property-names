@@ -83,6 +83,7 @@ public class PropertyNamesProcessor extends AbstractProcessor {
   }
 
   private void createPropertyNamesClass(TypeElement clazz) throws IOException {
+    GeneratePropertyNames generatePropertyNames = clazz.getAnnotation(GeneratePropertyNames.class);
     PackageElement packageElement = (PackageElement) clazz.getEnclosingElement();
     final String packageName =
         packageElement != null ? packageElement.getQualifiedName().toString() : null;
@@ -116,7 +117,11 @@ public class PropertyNamesProcessor extends AbstractProcessor {
       out.println();
       for (Element property : properties) {
         out.print("  public static final String ");
-        out.print(property.getSimpleName());
+        if (generatePropertyNames == null || generatePropertyNames.capitalize()) {
+          out.print(staticFieldName(property.getSimpleName().toString()));
+        } else {
+          out.print(property.getSimpleName());
+        }
         out.print(" = \"");
         out.print(property.getSimpleName());
         out.println("\";");
@@ -146,5 +151,25 @@ public class PropertyNamesProcessor extends AbstractProcessor {
     return methods.stream().filter(
         method -> setterPatern.matcher(method.getSimpleName().toString().toLowerCase()).matches())
         .findAny().isPresent();
+  }
+
+  private String staticFieldName(String instanceFieldName) {
+    StringBuilder builder = new StringBuilder();
+    char[] chars = instanceFieldName.toCharArray();
+    builder.append(Character.toUpperCase(chars[0]));
+    for (int i = 1; i < chars.length; i++) {
+      char ch = chars[i];
+      if (Character.isUpperCase(ch)) {
+        if (!Character.isUpperCase(chars[i - 1])
+            || (i + 1 < chars.length && Character.isLowerCase(chars[i + 1]))) {
+          builder.append("_" + ch);
+        } else {
+          builder.append(ch);
+        }
+      } else {
+        builder.append(Character.toUpperCase(ch));
+      }
+    }
+    return builder.toString();
   }
 }

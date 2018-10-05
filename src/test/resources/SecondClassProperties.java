@@ -25,6 +25,6 @@ import javax.annotation.Generated;
 
 @Generated(value = "PropertyNamesProcessor")
 public class SecondClassProperties {
-  public static final String id = "id";
-  public static final String name = "name";
+  public static final String ID = "id";
+  public static final String NAME = "name";
 }
