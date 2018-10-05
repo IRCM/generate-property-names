@@ -49,8 +49,7 @@ import javax.tools.JavaFileObject;
 /**
  * Creates a class naming all fields of annotated classes.
  */
-@SupportedAnnotationTypes({ "ca.qc.ircm.processing.GeneratePropertyNames",
-    "javax.persistence.Entity" })
+@SupportedAnnotationTypes("ca.qc.ircm.processing.GeneratePropertyNames")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class PropertyNamesProcessor extends AbstractProcessor {
@@ -117,7 +116,7 @@ public class PropertyNamesProcessor extends AbstractProcessor {
       out.println();
       for (Element property : properties) {
         out.print("  public static final String ");
-        if (generatePropertyNames == null || generatePropertyNames.capitalize()) {
+        if (generatePropertyNames.capitalize()) {
           out.print(staticFieldName(property.getSimpleName().toString()));
         } else {
           out.print(property.getSimpleName());
