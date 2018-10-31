@@ -30,12 +30,12 @@
     <relativePath>../ircm-parent/pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>property-names-annotation-processor</artifactId>
-  <name>property-names-annotation-processor</name>
+  <artifactId>generate-property-names</artifactId>
+  <name>generate-property-names</name>
   <inceptionYear>2018</inceptionYear>
   <version>0.5-SNAPSHOT</version>
   <description>Creates a metadata class containing property names of annotated classes as public static fields.</description>
-  <url>https://github.com/IRCM/property-names-annotation-processor</url>
+  <url>https://github.com/IRCM/generate-property-names</url>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -44,13 +44,13 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:github.com:IRCM/property-names-annotation-processor.git</connection>
-    <developerConnection>scm:git:github.com:IRCM/property-names-annotation-processor.git</developerConnection>
-    <url>https://github.com/IRCM/property-names-annotation-processor</url>
+    <connection>scm:git:github.com:IRCM/generate-property-names.git</connection>
+    <developerConnection>scm:git:github.com:IRCM/generate-property-names.git</developerConnection>
+    <url>https://github.com/IRCM/generate-property-names</url>
   </scm>
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/IRCM/property-names-annotation-processor/issues</url>
+    <url>https://github.com/IRCM/generate-property-names/issues</url>
   </issueManagement>
   <properties>
     <javac.version>1.8</javac.version>
