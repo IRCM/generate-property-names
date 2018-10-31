@@ -30,10 +30,10 @@ import com.google.testing.compile.Compilation;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.Test;
 
-public class PropertyNamesProcessorTest {
+public class GeneratePropertyNamesProcessorTest {
   @Test
   public void firstClass() {
-    Compilation compilation = javac().withProcessors(new PropertyNamesProcessor())
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/FirstClass.java"));
     assertThat(compilation).succeeded();
     assertThat(compilation).generatedSourceFile("ca.qc.ircm.processing.FirstClassProperties")
@@ -43,7 +43,7 @@ public class PropertyNamesProcessorTest {
 
   @Test
   public void capitalizeClass() {
-    Compilation compilation = javac().withProcessors(new PropertyNamesProcessor())
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/CapitalizeClass.java"));
     assertThat(compilation).succeeded();
     assertThat(compilation).generatedSourceFile("ca.qc.ircm.processing.CapitalizeClassProperties")
@@ -53,7 +53,7 @@ public class PropertyNamesProcessorTest {
 
   @Test
   public void secondClass() {
-    Compilation compilation = javac().withProcessors(new PropertyNamesProcessor())
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("SecondClass.java"));
     assertThat(compilation).succeeded();
     assertThat(compilation).generatedSourceFile("SecondClassProperties")
