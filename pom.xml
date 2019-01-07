@@ -101,9 +101,6 @@
               <exclude>**/*.dtd</exclude>
               <exclude>**/*.dat</exclude>
               <exclude>src/license/THIRD-PARTY.properties</exclude>
-              <exclude>src/main/resources/VAADIN/themes/**/addons.scss</exclude>
-              <exclude>src/main/java/**/web/**/*Design.java</exclude>
-              <exclude>src/main/java/**/web/**/*Design.html</exclude>
             </excludes>
             <executions>
               <execution>
