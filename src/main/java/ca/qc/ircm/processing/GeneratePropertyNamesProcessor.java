@@ -53,9 +53,9 @@ import javax.tools.JavaFileObject;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class GeneratePropertyNamesProcessor extends AbstractProcessor {
-  private static final String GENERATED_VALUE = "PropertyNamesProcessor";
-  private static final String GENERATE_CLASSNAME = "{0}Properties";
   private static final String CLASSNAME = GeneratePropertyNamesProcessor.class.getName();
+  private static final String GENERATED_VALUE = CLASSNAME;
+  private static final String GENERATE_CLASSNAME = "{0}Properties";
   private static final String GETTER_METHOD_NAME_LOWERCASE_PATTERN = "is{0}|get{0}";
   private static final String SETTER_METHOD_NAME_LOWERCASE_PATTERN = "set{0}";
   private static final Logger logger = Logger.getLogger(CLASSNAME);
@@ -107,7 +107,7 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
       }
       out.println("import javax.annotation.Generated;");
       out.println();
-      out.print("@Generated(value=\"");
+      out.print("@Generated(\"");
       out.print(GENERATED_VALUE);
       out.println("\")");
       out.print("public class ");
