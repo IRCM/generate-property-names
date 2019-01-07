@@ -29,4 +29,3 @@ public class MyClassProperties {
 ## Supported annotations.
 
 - ca.qc.ircm.processing.GeneratePropertyNames
-- javax.persistence.Entity
