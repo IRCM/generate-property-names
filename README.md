@@ -8,7 +8,7 @@ So, if you have a class like this.
 ```
 package com.mypackage;
 
-@Entity
+@GeneratePropertyNames
 public class MyClass {
   private myProperty;
   private mySecondProperty;
