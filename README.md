@@ -1,3 +1,5 @@
+![Java CI](https://github.com/IRCM/generate-property-names/workflows/Java%20CI/badge.svg?branch=master)
+
 # Property names annotation processor.
 
 ## Class produced.
