@@ -94,8 +94,9 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
         .filter(element -> element.getKind() == ElementKind.FIELD).collect(Collectors.toList());
     List<Element> methods = clazz.getEnclosedElements().stream()
         .filter(element -> element.getKind() == ElementKind.METHOD).collect(Collectors.toList());
-    List<Element> properties =
-        fields.stream().filter(field -> isProperty(field, methods)).collect(Collectors.toList());
+    List<Element> properties = fields.stream()
+        .filter(field -> isProperty(field, methods, generatePropertyNames.requirements()))
+        .collect(Collectors.toList());
     JavaFileObject fieldsDefinitionFile =
         processingEnv.getFiler().createSourceFile(qualifiedClassName, clazz);
     try (PrintWriter out = new PrintWriter(fieldsDefinitionFile.openWriter())) {
@@ -130,8 +131,20 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
     }
   }
 
-  private boolean isProperty(Element field, Collection<? extends Element> methods) {
-    return hasGetter(field, methods) && hasSetter(field, methods);
+  private boolean isProperty(Element field, Collection<? extends Element> methods,
+      GeneratePropertyRequirements requirements) {
+    switch (requirements) {
+      case GETTER_AND_SETTER:
+        return hasGetter(field, methods) && hasSetter(field, methods);
+      case GETTER:
+        return hasGetter(field, methods);
+      case SETTER:
+        return hasSetter(field, methods);
+      case GETTER_OR_SETTER:
+        return hasGetter(field, methods) || hasSetter(field, methods);
+      default:
+        return hasGetter(field, methods) && hasSetter(field, methods);
+    }
   }
 
   private boolean hasGetter(Element field, Collection<? extends Element> methods) {

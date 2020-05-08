@@ -59,4 +59,46 @@ public class GeneratePropertyNamesProcessorTest {
     assertThat(compilation).generatedSourceFile("SecondClassProperties")
         .hasSourceEquivalentTo(JavaFileObjects.forResource("SecondClassProperties.java"));
   }
+
+  @Test
+  public void getterAndSetterClass() {
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
+        .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/GetterAndSetterClass.java"));
+    assertThat(compilation).succeeded();
+    assertThat(compilation)
+        .generatedSourceFile("ca/qc/ircm/processing/GetterAndSetterClassProperties")
+        .hasSourceEquivalentTo(JavaFileObjects
+            .forResource("ca/qc/ircm/processing/GetterAndSetterClassProperties.java"));
+  }
+
+  @Test
+  public void getterClass() {
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
+        .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/GetterClass.java"));
+    assertThat(compilation).succeeded();
+    assertThat(compilation).generatedSourceFile("ca/qc/ircm/processing/GetterClassProperties")
+        .hasSourceEquivalentTo(
+            JavaFileObjects.forResource("ca/qc/ircm/processing/GetterClassProperties.java"));
+  }
+
+  @Test
+  public void setterClass() {
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
+        .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/SetterClass.java"));
+    assertThat(compilation).succeeded();
+    assertThat(compilation).generatedSourceFile("ca/qc/ircm/processing/SetterClassProperties")
+        .hasSourceEquivalentTo(
+            JavaFileObjects.forResource("ca/qc/ircm/processing/SetterClassProperties.java"));
+  }
+
+  @Test
+  public void getterOrSetterClass() {
+    Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
+        .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/GetterOrSetterClass.java"));
+    assertThat(compilation).succeeded();
+    assertThat(compilation)
+        .generatedSourceFile("ca/qc/ircm/processing/GetterOrSetterClassProperties")
+        .hasSourceEquivalentTo(JavaFileObjects
+            .forResource("ca/qc/ircm/processing/GetterOrSetterClassProperties.java"));
+  }
 }
