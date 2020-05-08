@@ -54,8 +54,8 @@
   </issueManagement>
   <properties>
     <javac.version>1.8</javac.version>
-    <auto-service.version>1.0-rc4</auto-service.version>
-    <compile-testing.version>0.13</compile-testing.version>
+    <auto-service.version>1.0-rc6</auto-service.version>
+    <compile-testing.version>0.18</compile-testing.version>
   </properties>
   <dependencies>
     <dependency>
