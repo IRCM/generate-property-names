@@ -57,7 +57,7 @@
   <properties>
     <javac.version>1.8</javac.version>
     <auto-service.version>1.0.1</auto-service.version>
-    <compile-testing.version>0.18</compile-testing.version>
+    <compile-testing.version>0.19</compile-testing.version>
   </properties>
   <dependencies>
     <dependency>
