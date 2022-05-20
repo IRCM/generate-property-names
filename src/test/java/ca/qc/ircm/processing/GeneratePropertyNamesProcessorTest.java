@@ -26,19 +26,34 @@ package ca.qc.ircm.processing;
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static com.google.testing.compile.Compiler.javac;
 
+import com.google.common.truth.StringSubject;
 import com.google.testing.compile.Compilation;
+import com.google.testing.compile.JavaFileObjectSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.Test;
 
 public class GeneratePropertyNamesProcessorTest {
   @Test
-  public void firstClass() {
+  public void firstClass() throws Throwable {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/FirstClass.java"));
     assertThat(compilation).succeeded();
     assertThat(compilation).generatedSourceFile("ca.qc.ircm.processing.FirstClassProperties")
         .hasSourceEquivalentTo(
             JavaFileObjects.forResource("ca/qc/ircm/processing/FirstClassProperties.java"));
+    StringSubject generateSourceString = assertThat(compilation)
+        .generatedSourceFile("ca.qc.ircm.processing.FirstClassProperties").contentsAsUtf8String();
+    generateSourceString.contains("/**\n * Name of properties of class {@link FirstClass}.\n */");
+    generateSourceString.contains("  /**\n   * id property's name.\n   */");
+    generateSourceString.contains("  /**\n   * name property's name.\n   */");
+    generateSourceString.contains("  /**\n   * valid property's name.\n   */");
+    generateSourceString.contains("  /**\n   * camelCaseProperty property's name.\n   */");
+    generateSourceString.contains("  /**\n   * UPPER property's name.\n   */");
+    generateSourceString.contains("  /**\n   * camelMANYUpperCases property's name.\n   */");
+    generateSourceString.contains("  /**\n   * FirstUpperCase property's name.\n   */");
+    generateSourceString.doesNotContain("nonProperty");
+    generateSourceString.doesNotContain("onlyGetter");
+    generateSourceString.doesNotContain("onlySetter");
   }
 
   @Test
@@ -46,9 +61,23 @@ public class GeneratePropertyNamesProcessorTest {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/CapitalizeClass.java"));
     assertThat(compilation).succeeded();
-    assertThat(compilation).generatedSourceFile("ca.qc.ircm.processing.CapitalizeClassProperties")
-        .hasSourceEquivalentTo(
-            JavaFileObjects.forResource("ca/qc/ircm/processing/CapitalizeClassProperties.java"));
+    JavaFileObjectSubject generatedSource = assertThat(compilation)
+        .generatedSourceFile("ca.qc.ircm.processing.CapitalizeClassProperties");
+    generatedSource.hasSourceEquivalentTo(
+        JavaFileObjects.forResource("ca/qc/ircm/processing/CapitalizeClassProperties.java"));
+    StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
+    generateSourceString
+        .contains("/**\n * Name of properties of class {@link CapitalizeClass}.\n */");
+    generateSourceString.contains("  /**\n   * id property's name.\n   */");
+    generateSourceString.contains("  /**\n   * name property's name.\n   */");
+    generateSourceString.contains("  /**\n   * valid property's name.\n   */");
+    generateSourceString.contains("  /**\n   * camelCaseProperty property's name.\n   */");
+    generateSourceString.contains("  /**\n   * UPPER property's name.\n   */");
+    generateSourceString.contains("  /**\n   * camelMANYUpperCases property's name.\n   */");
+    generateSourceString.contains("  /**\n   * FirstUpperCase property's name.\n   */");
+    generateSourceString.doesNotContain("nonProperty");
+    generateSourceString.doesNotContain("onlyGetter");
+    generateSourceString.doesNotContain("onlySetter");
   }
 
   @Test
@@ -56,8 +85,14 @@ public class GeneratePropertyNamesProcessorTest {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("SecondClass.java"));
     assertThat(compilation).succeeded();
-    assertThat(compilation).generatedSourceFile("SecondClassProperties")
+    JavaFileObjectSubject generatedSource =
+        assertThat(compilation).generatedSourceFile("SecondClassProperties");
+    generatedSource
         .hasSourceEquivalentTo(JavaFileObjects.forResource("SecondClassProperties.java"));
+    StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
+    generateSourceString.contains("/**\n * Name of properties of class {@link SecondClass}.\n */");
+    generateSourceString.contains("  /**\n   * id property's name.\n   */");
+    generateSourceString.contains("  /**\n   * name property's name.\n   */");
   }
 
   @Test
@@ -65,10 +100,17 @@ public class GeneratePropertyNamesProcessorTest {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/GetterAndSetterClass.java"));
     assertThat(compilation).succeeded();
-    assertThat(compilation)
-        .generatedSourceFile("ca/qc/ircm/processing/GetterAndSetterClassProperties")
-        .hasSourceEquivalentTo(JavaFileObjects
-            .forResource("ca/qc/ircm/processing/GetterAndSetterClassProperties.java"));
+    JavaFileObjectSubject generatedSource = assertThat(compilation)
+        .generatedSourceFile("ca/qc/ircm/processing/GetterAndSetterClassProperties");
+    generatedSource.hasSourceEquivalentTo(
+        JavaFileObjects.forResource("ca/qc/ircm/processing/GetterAndSetterClassProperties.java"));
+    StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
+    generateSourceString
+        .contains("/**\n * Name of properties of class {@link GetterAndSetterClass}.\n */");
+    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
+    generateSourceString.doesNotContain("getterOnly");
+    generateSourceString.doesNotContain("setterOnly");
+    generateSourceString.doesNotContain("noGetterOrSetter");
   }
 
   @Test
@@ -76,9 +118,16 @@ public class GeneratePropertyNamesProcessorTest {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/GetterClass.java"));
     assertThat(compilation).succeeded();
-    assertThat(compilation).generatedSourceFile("ca/qc/ircm/processing/GetterClassProperties")
-        .hasSourceEquivalentTo(
-            JavaFileObjects.forResource("ca/qc/ircm/processing/GetterClassProperties.java"));
+    JavaFileObjectSubject generatedSource =
+        assertThat(compilation).generatedSourceFile("ca/qc/ircm/processing/GetterClassProperties");
+    generatedSource.hasSourceEquivalentTo(
+        JavaFileObjects.forResource("ca/qc/ircm/processing/GetterClassProperties.java"));
+    StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
+    generateSourceString.contains("/**\n * Name of properties of class {@link GetterClass}.\n */");
+    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
+    generateSourceString.contains("  /**\n   * getterOnly property's name.\n   */");
+    generateSourceString.doesNotContain("setterOnly");
+    generateSourceString.doesNotContain("noGetterOrSetter");
   }
 
   @Test
@@ -86,9 +135,16 @@ public class GeneratePropertyNamesProcessorTest {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/SetterClass.java"));
     assertThat(compilation).succeeded();
-    assertThat(compilation).generatedSourceFile("ca/qc/ircm/processing/SetterClassProperties")
-        .hasSourceEquivalentTo(
-            JavaFileObjects.forResource("ca/qc/ircm/processing/SetterClassProperties.java"));
+    JavaFileObjectSubject generatedSource =
+        assertThat(compilation).generatedSourceFile("ca/qc/ircm/processing/SetterClassProperties");
+    generatedSource.hasSourceEquivalentTo(
+        JavaFileObjects.forResource("ca/qc/ircm/processing/SetterClassProperties.java"));
+    StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
+    generateSourceString.contains("/**\n * Name of properties of class {@link SetterClass}.\n */");
+    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
+    generateSourceString.doesNotContain("getterOnly");
+    generateSourceString.contains("  /**\n   * setterOnly property's name.\n   */");
+    generateSourceString.doesNotContain("noGetterOrSetter");
   }
 
   @Test
@@ -96,9 +152,16 @@ public class GeneratePropertyNamesProcessorTest {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/GetterOrSetterClass.java"));
     assertThat(compilation).succeeded();
-    assertThat(compilation)
-        .generatedSourceFile("ca/qc/ircm/processing/GetterOrSetterClassProperties")
-        .hasSourceEquivalentTo(JavaFileObjects
-            .forResource("ca/qc/ircm/processing/GetterOrSetterClassProperties.java"));
+    JavaFileObjectSubject generatedSource = assertThat(compilation)
+        .generatedSourceFile("ca/qc/ircm/processing/GetterOrSetterClassProperties");
+    generatedSource.hasSourceEquivalentTo(
+        JavaFileObjects.forResource("ca/qc/ircm/processing/GetterOrSetterClassProperties.java"));
+    StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
+    generateSourceString
+        .contains("/**\n * Name of properties of class {@link GetterOrSetterClass}.\n */");
+    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
+    generateSourceString.contains("  /**\n   * getterOnly property's name.\n   */");
+    generateSourceString.contains("  /**\n   * setterOnly property's name.\n   */");
+    generateSourceString.doesNotContain("noGetterOrSetter");
   }
 }

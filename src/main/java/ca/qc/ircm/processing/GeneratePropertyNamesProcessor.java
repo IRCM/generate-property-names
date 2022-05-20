@@ -108,6 +108,11 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
       }
       out.println("import javax.annotation.Generated;");
       out.println();
+      out.println("/**");
+      out.print(" * Name of properties of class {@link ");
+      out.print(clazz.getSimpleName());
+      out.println("}.");
+      out.println(" */");
       out.print("@Generated(\"");
       out.print(GENERATED_VALUE);
       out.println("\")");
@@ -116,6 +121,11 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
       out.println(" {");
       out.println();
       for (Element property : properties) {
+        out.println("  /**");
+        out.print("   * ");
+        out.print(property.getSimpleName());
+        out.println(" property's name.");
+        out.println("   */");
         out.print("  public static final String ");
         if (generatePropertyNames.capitalize()) {
           out.print(staticFieldName(property.getSimpleName().toString()));
