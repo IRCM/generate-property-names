@@ -22,7 +22,8 @@
     THE SOFTWARE.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>ca.qc.ircm</groupId>
     <artifactId>parent</artifactId>
@@ -34,7 +35,8 @@
   <name>generate-property-names</name>
   <inceptionYear>2018</inceptionYear>
   <version>1.1-SNAPSHOT</version>
-  <description>Creates a metadata class containing property names of annotated classes as public static fields.</description>
+  <description>Creates a metadata class containing property names of annotated classes as public static fields.
+  </description>
   <url>https://github.com/IRCM/generate-property-names</url>
   <licenses>
     <license>
@@ -102,12 +104,14 @@
               <exclude>**/*.dat</exclude>
               <exclude>src/license/THIRD-PARTY.properties</exclude>
             </excludes>
-            <executions>
-              <execution>
-                <goals><goal>check</goal></goals>
-              </execution>
-            </executions>
           </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
