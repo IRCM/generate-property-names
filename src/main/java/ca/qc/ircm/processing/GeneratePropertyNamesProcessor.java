@@ -122,9 +122,11 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
       out.println();
       for (Element property : properties) {
         out.println("  /**");
-        out.print("   * ");
+        out.print("   * {@link ");
+        out.print(clazz.getSimpleName());
+        out.print("#");
         out.print(property.getSimpleName());
-        out.println(" property's name.");
+        out.println("} property's name.");
         out.println("   */");
         out.print("  public static final String ");
         if (generatePropertyNames.capitalize()) {

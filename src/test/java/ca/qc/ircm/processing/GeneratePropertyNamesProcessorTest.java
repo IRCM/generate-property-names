@@ -44,13 +44,16 @@ public class GeneratePropertyNamesProcessorTest {
     StringSubject generateSourceString = assertThat(compilation)
         .generatedSourceFile("ca.qc.ircm.processing.FirstClassProperties").contentsAsUtf8String();
     generateSourceString.contains("/**\n * Name of properties of class {@link FirstClass}.\n */");
-    generateSourceString.contains("  /**\n   * id property's name.\n   */");
-    generateSourceString.contains("  /**\n   * name property's name.\n   */");
-    generateSourceString.contains("  /**\n   * valid property's name.\n   */");
-    generateSourceString.contains("  /**\n   * camelCaseProperty property's name.\n   */");
-    generateSourceString.contains("  /**\n   * UPPER property's name.\n   */");
-    generateSourceString.contains("  /**\n   * camelMANYUpperCases property's name.\n   */");
-    generateSourceString.contains("  /**\n   * FirstUpperCase property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link FirstClass#id} property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link FirstClass#name} property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link FirstClass#valid} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link FirstClass#camelCaseProperty} property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link FirstClass#UPPER} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link FirstClass#camelMANYUpperCases} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link FirstClass#FirstUpperCase} property's name.\n   */");
     generateSourceString.doesNotContain("nonProperty");
     generateSourceString.doesNotContain("onlyGetter");
     generateSourceString.doesNotContain("onlySetter");
@@ -68,13 +71,19 @@ public class GeneratePropertyNamesProcessorTest {
     StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
     generateSourceString
         .contains("/**\n * Name of properties of class {@link CapitalizeClass}.\n */");
-    generateSourceString.contains("  /**\n   * id property's name.\n   */");
-    generateSourceString.contains("  /**\n   * name property's name.\n   */");
-    generateSourceString.contains("  /**\n   * valid property's name.\n   */");
-    generateSourceString.contains("  /**\n   * camelCaseProperty property's name.\n   */");
-    generateSourceString.contains("  /**\n   * UPPER property's name.\n   */");
-    generateSourceString.contains("  /**\n   * camelMANYUpperCases property's name.\n   */");
-    generateSourceString.contains("  /**\n   * FirstUpperCase property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link CapitalizeClass#id} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link CapitalizeClass#name} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link CapitalizeClass#valid} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link CapitalizeClass#camelCaseProperty} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link CapitalizeClass#UPPER} property's name.\n   */");
+    generateSourceString.contains(
+        "  /**\n   * {@link CapitalizeClass#camelMANYUpperCases} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link CapitalizeClass#FirstUpperCase} property's name.\n   */");
     generateSourceString.doesNotContain("nonProperty");
     generateSourceString.doesNotContain("onlyGetter");
     generateSourceString.doesNotContain("onlySetter");
@@ -91,8 +100,8 @@ public class GeneratePropertyNamesProcessorTest {
         .hasSourceEquivalentTo(JavaFileObjects.forResource("SecondClassProperties.java"));
     StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
     generateSourceString.contains("/**\n * Name of properties of class {@link SecondClass}.\n */");
-    generateSourceString.contains("  /**\n   * id property's name.\n   */");
-    generateSourceString.contains("  /**\n   * name property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link SecondClass#id} property's name.\n   */");
+    generateSourceString.contains("  /**\n   * {@link SecondClass#name} property's name.\n   */");
   }
 
   @Test
@@ -107,7 +116,8 @@ public class GeneratePropertyNamesProcessorTest {
     StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
     generateSourceString
         .contains("/**\n * Name of properties of class {@link GetterAndSetterClass}.\n */");
-    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
+    generateSourceString.contains(
+        "  /**\n   * {@link GetterAndSetterClass#getterAndSetter} property's name.\n   */");
     generateSourceString.doesNotContain("getterOnly");
     generateSourceString.doesNotContain("setterOnly");
     generateSourceString.doesNotContain("noGetterOrSetter");
@@ -124,8 +134,10 @@ public class GeneratePropertyNamesProcessorTest {
         JavaFileObjects.forResource("ca/qc/ircm/processing/GetterClassProperties.java"));
     StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
     generateSourceString.contains("/**\n * Name of properties of class {@link GetterClass}.\n */");
-    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
-    generateSourceString.contains("  /**\n   * getterOnly property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link GetterClass#getterAndSetter} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link GetterClass#getterOnly} property's name.\n   */");
     generateSourceString.doesNotContain("setterOnly");
     generateSourceString.doesNotContain("noGetterOrSetter");
   }
@@ -141,9 +153,11 @@ public class GeneratePropertyNamesProcessorTest {
         JavaFileObjects.forResource("ca/qc/ircm/processing/SetterClassProperties.java"));
     StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
     generateSourceString.contains("/**\n * Name of properties of class {@link SetterClass}.\n */");
-    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link SetterClass#getterAndSetter} property's name.\n   */");
     generateSourceString.doesNotContain("getterOnly");
-    generateSourceString.contains("  /**\n   * setterOnly property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link SetterClass#setterOnly} property's name.\n   */");
     generateSourceString.doesNotContain("noGetterOrSetter");
   }
 
@@ -159,9 +173,12 @@ public class GeneratePropertyNamesProcessorTest {
     StringSubject generateSourceString = generatedSource.contentsAsUtf8String();
     generateSourceString
         .contains("/**\n * Name of properties of class {@link GetterOrSetterClass}.\n */");
-    generateSourceString.contains("  /**\n   * getterAndSetter property's name.\n   */");
-    generateSourceString.contains("  /**\n   * getterOnly property's name.\n   */");
-    generateSourceString.contains("  /**\n   * setterOnly property's name.\n   */");
+    generateSourceString.contains(
+        "  /**\n   * {@link GetterOrSetterClass#getterAndSetter} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link GetterOrSetterClass#getterOnly} property's name.\n   */");
+    generateSourceString
+        .contains("  /**\n   * {@link GetterOrSetterClass#setterOnly} property's name.\n   */");
     generateSourceString.doesNotContain("noGetterOrSetter");
   }
 }
