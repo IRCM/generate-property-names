@@ -53,13 +53,46 @@ import javax.tools.JavaFileObject;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class GeneratePropertyNamesProcessor extends AbstractProcessor {
+  /**
+   * Name of this class.
+   */
   private static final String CLASSNAME = GeneratePropertyNamesProcessor.class.getName();
+  /**
+   * Value to be used in the Generated annotation of generated class.
+   */
   private static final String GENERATED_VALUE = CLASSNAME;
+  /**
+   * Name of generated class.
+   *
+   * <code>{0}</code> will be replaced by the name of the class being processed.
+   */
   private static final String GENERATE_CLASSNAME = "{0}Properties";
+  /**
+   * Pattern of a getter method's name.
+   *
+   * <code>{0}</code> will be replaced by the name of the class being processed.
+   */
   private static final String GETTER_METHOD_NAME_LOWERCASE_PATTERN = "is{0}|get{0}";
+  /**
+   * Pattern of a setter method's name.
+   *
+   * <code>{0}</code> will be replaced by the name of the class being processed.
+   */
   private static final String SETTER_METHOD_NAME_LOWERCASE_PATTERN = "set{0}";
+  /**
+   * Logger.
+   */
   private static final Logger logger = Logger.getLogger(CLASSNAME);
 
+  /**
+   * Generates a properties name class for all classes annotated with {@link GeneratePropertyNames}.
+   *
+   * @param annotations
+   *          the annotation types requested to be processed
+   * @param roundEnv
+   *          environment for information about the current and prior round
+   * @return true if all classes were generated, false if an exception occurs
+   */
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     Set<TypeElement> annotatedClasses = new HashSet<>();
@@ -81,6 +114,14 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
     return true;
   }
 
+  /**
+   * Generate a class that contains all the names of properties found.
+   *
+   * @param clazz
+   *          original class for which to generate a property names class
+   * @throws IOException
+   *           could not write the generated class
+   */
   private void createPropertyNamesClass(TypeElement clazz) throws IOException {
     GeneratePropertyNames generatePropertyNames = clazz.getAnnotation(GeneratePropertyNames.class);
     PackageElement packageElement = (PackageElement) clazz.getEnclosingElement();
@@ -143,6 +184,17 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
     }
   }
 
+  /**
+   * Returns true if field is considered a property base on the requirements, false otherwise.
+   *
+   * @param field
+   *          field
+   * @param methods
+   *          all methods of class
+   * @param requirements
+   *          how to determine if a field is a property
+   * @return true if field is considered a property base on the requirements, false otherwise
+   */
   private boolean isProperty(Element field, Collection<? extends Element> methods,
       GeneratePropertyRequirements requirements) {
     switch (requirements) {
@@ -159,6 +211,15 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
     }
   }
 
+  /**
+   * Returns true if field has a getter method, false otherwise.
+   *
+   * @param field
+   *          field
+   * @param methods
+   *          all methods of the class
+   * @return true if field has a getter method, false otherwise
+   */
   private boolean hasGetter(Element field, Collection<? extends Element> methods) {
     Pattern getterPatern =
         Pattern.compile(MessageFormat.format(GETTER_METHOD_NAME_LOWERCASE_PATTERN,
@@ -168,6 +229,15 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
         .findAny().isPresent();
   }
 
+  /**
+   * Returns true if field has a setter method, false otherwise.
+   *
+   * @param field
+   *          field
+   * @param methods
+   *          all methods of the class
+   * @return true if field has a setter method, false otherwise
+   */
   private boolean hasSetter(Element field, Collection<? extends Element> methods) {
     Pattern setterPatern =
         Pattern.compile(MessageFormat.format(SETTER_METHOD_NAME_LOWERCASE_PATTERN,
@@ -177,6 +247,18 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
         .findAny().isPresent();
   }
 
+  /**
+   * Returns capitalized name of field.
+   * <p>
+   * This method will capitalized the name of field and add underscores before each upper case
+   * letters following a lower case letter. <br>
+   * For example, a property named <code>myProperty</code> or <code>MY_PROPERTY</code> will be
+   * converted to <code>MY_PROPERTY</code>.
+   *
+   * @param instanceFieldName
+   *          name of field
+   * @return capitalized name of field
+   */
   private String staticFieldName(String instanceFieldName) {
     StringBuilder builder = new StringBuilder();
     char[] chars = instanceFieldName.toCharArray();
