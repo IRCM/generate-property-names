@@ -224,9 +224,8 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
     Pattern getterPatern =
         Pattern.compile(MessageFormat.format(GETTER_METHOD_NAME_LOWERCASE_PATTERN,
             field.getSimpleName().toString().toLowerCase()));
-    return methods.stream().filter(
-        method -> getterPatern.matcher(method.getSimpleName().toString().toLowerCase()).matches())
-        .findAny().isPresent();
+    return methods.stream().anyMatch(
+        method -> getterPatern.matcher(method.getSimpleName().toString().toLowerCase()).matches());
   }
 
   /**
@@ -242,9 +241,8 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
     Pattern setterPatern =
         Pattern.compile(MessageFormat.format(SETTER_METHOD_NAME_LOWERCASE_PATTERN,
             field.getSimpleName().toString().toLowerCase()));
-    return methods.stream().filter(
-        method -> setterPatern.matcher(method.getSimpleName().toString().toLowerCase()).matches())
-        .findAny().isPresent();
+    return methods.stream().anyMatch(
+        method -> setterPatern.matcher(method.getSimpleName().toString().toLowerCase()).matches());
   }
 
   /**
@@ -268,10 +266,9 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
       if (Character.isUpperCase(ch)) {
         if (!Character.isUpperCase(chars[i - 1])
             || (i + 1 < chars.length && Character.isLowerCase(chars[i + 1]))) {
-          builder.append("_" + ch);
-        } else {
-          builder.append(ch);
+          builder.append('_');
         }
+        builder.append(ch);
       } else {
         builder.append(Character.toUpperCase(ch));
       }
