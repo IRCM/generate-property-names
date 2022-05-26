@@ -198,14 +198,13 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
   private boolean isProperty(Element field, Collection<? extends Element> methods,
       GeneratePropertyRequirements requirements) {
     switch (requirements) {
-      case GETTER_AND_SETTER:
-        return hasGetter(field, methods) && hasSetter(field, methods);
       case GETTER:
         return hasGetter(field, methods);
       case SETTER:
         return hasSetter(field, methods);
       case GETTER_OR_SETTER:
         return hasGetter(field, methods) || hasSetter(field, methods);
+      case GETTER_AND_SETTER:
       default:
         return hasGetter(field, methods) && hasSetter(field, methods);
     }

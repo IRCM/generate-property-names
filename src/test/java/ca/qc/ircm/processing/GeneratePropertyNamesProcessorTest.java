@@ -34,7 +34,7 @@ import org.junit.Test;
 
 public class GeneratePropertyNamesProcessorTest {
   @Test
-  public void firstClass() throws Throwable {
+  public void firstClass() {
     Compilation compilation = javac().withProcessors(new GeneratePropertyNamesProcessor())
         .compile(JavaFileObjects.forResource("ca/qc/ircm/processing/FirstClass.java"));
     assertThat(compilation).succeeded();
