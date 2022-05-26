@@ -45,7 +45,7 @@ public @interface GeneratePropertyNames {
 
   /**
    * Requirements for a property to generate its property name.
-   * 
+   *
    * @return requirements for a property to generate its property name
    */
   GeneratePropertyRequirements requirements() default GETTER_AND_SETTER;

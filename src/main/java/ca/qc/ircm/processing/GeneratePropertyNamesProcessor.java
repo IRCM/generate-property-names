@@ -247,11 +247,13 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
 
   /**
    * Returns capitalized name of field.
+   *
    * <p>
    * This method will capitalize the name of field and add underscores before each upper case
    * letters following a lower case letter. <br>
    * For example, a property named <code>myProperty</code> or <code>myPROPERTY</code> will be
    * converted to <code>MY_PROPERTY</code>.
+   * </p>
    *
    * @param instanceFieldName
    *          name of field
