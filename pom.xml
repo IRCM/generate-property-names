@@ -93,6 +93,9 @@
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
+            <properties>
+              <owner>${project.organization.name}</owner>
+            </properties>
             <headerDefinitions>
               <headerDefinition>src/license/javacomment_style.xml</headerDefinition>
             </headerDefinitions>
@@ -101,14 +104,19 @@
               <ini>SEMICOLON_STYLE</ini>
               <scss>JAVADOC_STYLE</scss>
             </mapping>
-            <excludes>
-              <exclude>**/README</exclude>
-              <exclude>**/*.txt</exclude>
-              <exclude>**/.*</exclude>
-              <exclude>**/*.dtd</exclude>
-              <exclude>**/*.dat</exclude>
-              <exclude>src/license/THIRD-PARTY.properties</exclude>
-            </excludes>
+            <licenseSets>
+              <licenseSet>
+                <header>license-header.txt</header>
+                <excludes>
+                  <exclude>**/README</exclude>
+                  <exclude>**/*.txt</exclude>
+                  <exclude>**/.*</exclude>
+                  <exclude>**/*.dtd</exclude>
+                  <exclude>**/*.dat</exclude>
+                  <exclude>src/license/THIRD-PARTY.properties</exclude>
+                </excludes>
+              </licenseSet>
+            </licenseSets>
           </configuration>
           <executions>
             <execution>
