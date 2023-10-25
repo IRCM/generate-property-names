@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 
 @Generated("ca.qc.ircm.processing.GeneratePropertyNamesProcessor")
 public class SecondClassProperties {

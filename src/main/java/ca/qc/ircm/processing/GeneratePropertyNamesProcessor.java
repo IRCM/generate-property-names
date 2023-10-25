@@ -50,7 +50,7 @@ import javax.tools.JavaFileObject;
  * Creates a class naming all fields of annotated classes.
  */
 @SupportedAnnotationTypes("ca.qc.ircm.processing.GeneratePropertyNames")
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class GeneratePropertyNamesProcessor extends AbstractProcessor {
   /**
@@ -147,7 +147,7 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
         out.println(";");
         out.println();
       }
-      out.println("import javax.annotation.Generated;");
+      out.println("import javax.annotation.processing.Generated;");
       out.println();
       out.println("/**");
       out.print(" * Name of properties of class {@link ");

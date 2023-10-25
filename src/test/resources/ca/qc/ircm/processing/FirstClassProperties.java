@@ -23,7 +23,7 @@
 
 package ca.qc.ircm.processing;
 
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 
 @Generated("ca.qc.ircm.processing.GeneratePropertyNamesProcessor")
 public class FirstClassProperties {
