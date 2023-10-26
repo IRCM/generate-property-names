@@ -25,11 +25,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>ca.qc.ircm</groupId>
-    <artifactId>parent</artifactId>
-    <version>10</version>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.1.5</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>ca.qc.ircm</groupId>
   <artifactId>generate-property-names</artifactId>
   <name>generate-property-names</name>
   <inceptionYear>2018</inceptionYear>
@@ -37,6 +38,10 @@
   <description>Creates a metadata class containing property names of annotated classes as public static fields.
   </description>
   <url>https://github.com/IRCM/generate-property-names</url>
+  <organization>
+    <name>Institut de recherches cliniques de Montreal (IRCM)</name>
+    <url>http://www.ircm.qc.ca</url>
+  </organization>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -44,6 +49,19 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <developers>
+    <developer>
+      <id>poitrac</id>
+      <name>Christian Poitras</name>
+      <email>christian.poitras@ircm.qc.ca</email>
+      <organization>IRCM</organization>
+      <organizationUrl>http://www.ircm.qc.ca</organizationUrl>
+      <timezone>-5</timezone>
+      <roles>
+        <role>Analyste en informatique</role>
+      </roles>
+    </developer>
+  </developers>
   <scm>
     <connection>scm:git:github.com:IRCM/generate-property-names.git</connection>
     <developerConnection>scm:git:github.com:IRCM/generate-property-names.git</developerConnection>
@@ -53,10 +71,23 @@
     <system>GitHub</system>
     <url>https://github.com/IRCM/generate-property-names/issues</url>
   </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <properties>
-    <javac.version>17</javac.version>
+    <java.version>17</java.version>
     <auto-service.version>1.1.1</auto-service.version>
     <compile-testing.version>0.21.0</compile-testing.version>
+    <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+    <license-maven-plugin.version>4.1</license-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.7.3.6</spotbugs-maven-plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -89,14 +120,50 @@
           </configuration>
         </plugin>
         <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
           <configuration>
             <show>private</show>
           </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadoc</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${maven-gpg-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
+          <version>${license-maven-plugin.version}</version>
           <configuration>
             <properties>
               <owner>${project.organization.name}</owner>
@@ -144,8 +211,8 @@
         <artifactId>maven-javadoc-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>buildnumber-maven-plugin</artifactId>
+        <groupId>io.github.git-commit-id</groupId>
+        <artifactId>git-commit-id-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
@@ -154,13 +221,27 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>17</source>
-          <target>17</target>
-        </configuration>
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <reporting>
     <plugins>
       <plugin>
@@ -170,6 +251,18 @@
             <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
           </reportsDirectories>
         </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report-only</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs-maven-plugin.version}</version>
       </plugin>
     </plugins>
   </reporting>
