@@ -40,19 +40,19 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
   private static final String GENERATED_VALUE = CLASSNAME;
   /**
    * Name of generated class.
-   *
+   * <br/>
    * <code>{0}</code> will be replaced by the name of the class being processed.
    */
   private static final String GENERATE_CLASSNAME = "{0}Properties";
   /**
    * Pattern of a getter method's name.
-   *
+   * <br/>
    * <code>{0}</code> will be replaced by the name of the class being processed.
    */
   private static final String GETTER_METHOD_NAME_LOWERCASE_PATTERN = "is{0}|get{0}";
   /**
    * Pattern of a setter method's name.
-   *
+   * <br/>
    * <code>{0}</code> will be replaced by the name of the class being processed.
    */
   private static final String SETTER_METHOD_NAME_LOWERCASE_PATTERN = "set{0}";
