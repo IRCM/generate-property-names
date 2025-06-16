@@ -114,7 +114,7 @@ public class GeneratePropertyNamesProcessor extends AbstractProcessor {
         .filter(element -> element.getKind() == ElementKind.METHOD).collect(Collectors.toList());
     List<Element> properties = fields.stream()
         .filter(field -> isProperty(field, methods, generatePropertyNames.requirements()))
-        .collect(Collectors.toList());
+        .toList();
     JavaFileObject fieldsDefinitionFile =
         processingEnv.getFiler().createSourceFile(qualifiedClassName, clazz);
     try (PrintWriter out = new PrintWriter(fieldsDefinitionFile.openWriter())) {
