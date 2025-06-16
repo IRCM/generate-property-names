@@ -27,7 +27,7 @@ import javax.tools.JavaFileObject;
  * Creates a class naming all fields of annotated classes.
  */
 @SupportedAnnotationTypes("ca.qc.ircm.processing.GeneratePropertyNames")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 @AutoService(Processor.class)
 public class GeneratePropertyNamesProcessor extends AbstractProcessor {
   /**
